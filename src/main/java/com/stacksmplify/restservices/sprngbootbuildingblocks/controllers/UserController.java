@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import com.stacksmplify.restservices.sprngbootbuildingblocks.entities.User;
+import com.stacksmplify.restservices.sprngbootbuildingblocks.exceptions.UserExistsException;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.exceptions.UserNotFoundException;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * UserController
@@ -49,8 +53,15 @@ public class UserController {
     // PostMapping annotationi
 
     @PostMapping("/users")
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder builder) {
+        try {
+            userService.createUser(user);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(builder.path("/users/{id}").buildAndExpand(user.getId()).toUri());
+            return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		} catch (UserExistsException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+		}
     }
 
     // Get User by ID
@@ -67,7 +78,11 @@ public class UserController {
     // Update user by id
     @PutMapping("/users/{id}")
     public User updateUserById(@PathVariable("id") Long id, @RequestBody User user) {
-        return userService.updateUserById(id, user);
+        try {
+			return userService.updateUserById(id, user);
+		} catch (UserNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+		}
     }
 
     // Delete user by id
