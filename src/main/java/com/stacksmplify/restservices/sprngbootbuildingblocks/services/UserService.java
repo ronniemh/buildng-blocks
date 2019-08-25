@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.stacksmplify.restservices.sprngbootbuildingblocks.entities.User;
+import com.stacksmplify.restservices.sprngbootbuildingblocks.exceptions.UserNotFoundException;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,11 @@ public class UserService {
     }
 
     // Get user by id
-    public Optional<User> getUserById(Long id) {
+    public Optional<User> getUserById(Long id) throws UserNotFoundException{
         Optional<User> user = userRepository.findById(id);
-
+        if(!user.isPresent()){
+            throw new UserNotFoundException("User not found in user repository");
+        }
         return user;
     }
 
