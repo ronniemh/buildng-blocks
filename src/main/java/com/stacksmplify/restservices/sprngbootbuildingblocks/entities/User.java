@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 /**
  * User Entity
@@ -18,11 +20,13 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty(message = "Username is mandatory field. Plese provide username")
     @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
     private String username;
 
+    @Size(min = 2, message = "FirstName should have atleast 2 characters")
     @Column(name = "FIRST_NAME", length = 50, nullable = false)
-    private String firsname;
+    private String firstname;
 
     @Column(name = "LAST_NAME", length = 50, nullable = false)
     private String lastname;
@@ -45,7 +49,7 @@ public class User {
     public User(Long id, String username, String firsname, String lastname, String email, String role, String ssn) {
         this.id = id;
         this.username = username;
-        this.firsname = firsname;
+        this.firstname = firsname;
         this.lastname = lastname;
         this.email = email;
         this.role = role;
@@ -69,13 +73,7 @@ public class User {
         this.username = username;
     }
 
-    public String getFirsname() {
-        return firsname;
-    }
-
-    public void setFirsname(String firsname) {
-        this.firsname = firsname;
-    }
+   
 
     public String getLastname() {
         return lastname;
@@ -113,8 +111,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [email=" + email + ", firsname=" + firsname + ", id=" + id + ", lastname=" + lastname + ", role="
+        return "User [email=" + email + ", firsname=" + firstname + ", id=" + id + ", lastname=" + lastname + ", role="
                 + role + ", ssn=" + ssn + ", username=" + username + "]";
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
 }
