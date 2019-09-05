@@ -1,9 +1,12 @@
 package com.stacksmplify.restservices.sprngbootbuildingblocks.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -39,6 +42,14 @@ public class User {
 
     @Column(name = "SSN", length = 50, nullable = false, unique = true)
     private String ssn;
+
+    /**
+     * La propiedad mappedBy es lo que usamos para decirle a Hibernate 
+     * qué variable estamos usando para representar la clase principal 
+     * en nuestra clase secundaria.
+     */
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
 
     // No argument constructor
 
@@ -122,5 +133,14 @@ public class User {
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+    
 
 }
