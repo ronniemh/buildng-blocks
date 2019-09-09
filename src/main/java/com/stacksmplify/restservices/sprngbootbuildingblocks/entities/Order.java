@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import org.springframework.hateoas.ResourceSupport;
 
@@ -20,7 +21,10 @@ public class Order extends ResourceSupport{
 
     @Id
     @GeneratedValue
+    @JsonView(Views.Internal.class)
     private Long orderId;
+
+    @JsonView(Views.Internal.class)
     private String orderDescription;
 
     @ManyToOne(fetch = FetchType.LAZY)
