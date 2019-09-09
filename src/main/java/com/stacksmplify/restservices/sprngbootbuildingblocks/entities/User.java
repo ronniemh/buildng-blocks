@@ -11,17 +11,19 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.hateoas.ResourceSupport;
+
 /**
  * User Entity
  */
 // @Entity(name = "nombre-real-db")
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends ResourceSupport {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long userId;
 
     @NotEmpty(message = "Username is mandatory field. Plese provide username")
     @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
@@ -44,9 +46,9 @@ public class User {
     private String ssn;
 
     /**
-     * La propiedad mappedBy es lo que usamos para decirle a Hibernate 
-     * qué variable estamos usando para representar la clase principal 
-     * en nuestra clase secundaria.
+     * La propiedad mappedBy es lo que usamos para decirle a Hibernate qué variable
+     * estamos usando para representar la clase principal en nuestra clase
+     * secundaria.
      */
     @OneToMany(mappedBy = "user")
     private Set<Order> orders;
@@ -57,24 +59,21 @@ public class User {
     }
 
     // Fields constructor
-    public User(Long id, String username, String firsname, String lastname, String email, String role, String ssn) {
-        this.id = id;
+
+    public User(Long userId, @NotEmpty(message = "Username is mandatory field. Plese provide username") String username,
+            @Size(min = 2, message = "FirstName should have atleast 2 characters") String firstname, String lastname,
+            String email, String role, String ssn, Set<Order> orders) {
+        this.userId = userId;
         this.username = username;
-        this.firstname = firsname;
+        this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.role = role;
         this.ssn = ssn;
+        this.orders = orders;
     }
+
     // Getters and Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -83,8 +82,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
-   
 
     public String getLastname() {
         return lastname;
@@ -118,13 +115,6 @@ public class User {
         this.ssn = ssn;
     }
 
-    // To String - Optional required for  bean logging
-
-    @Override
-    public String toString() {
-        return "User [email=" + email + ", firsname=" + firstname + ", id=" + id + ", lastname=" + lastname + ", role="
-                + role + ", ssn=" + ssn + ", username=" + username + "]";
-    }
 
     public String getFirstname() {
         return firstname;
@@ -141,6 +131,19 @@ public class User {
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
-    
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+    // To String - Optional required for bean logging
+
+    @Override
+    public String toString() {
+        return "User [email=" + email + ", firstname=" + firstname + ", lastname=" + lastname + ", role=" + role
+                + ", ssn=" + ssn + ", userId=" + userId + ", username=" + username + "]";
+    }
 }

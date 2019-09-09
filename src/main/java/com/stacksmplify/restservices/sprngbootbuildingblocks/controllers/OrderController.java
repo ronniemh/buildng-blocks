@@ -52,7 +52,7 @@ public class OrderController {
         if(!orderOp.isPresent()){
             throw new Exception("No se encuentra la orden con el id ingresado");
         }
-        if(userid.compareTo(orderOp.get().getUser().getId()) != 0){
+        if(userid.compareTo(orderOp.get().getUser().getUserId()) != 0){
             throw new Exception("La orden no pertenece al usuario ingresado");
         }
         return orderOp.get();

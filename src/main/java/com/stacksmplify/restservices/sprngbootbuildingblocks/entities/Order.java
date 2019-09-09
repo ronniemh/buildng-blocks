@@ -9,12 +9,14 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.hateoas.ResourceSupport;
+
 /**
  * Order
  */
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends ResourceSupport{
 
     @Id
     @GeneratedValue
