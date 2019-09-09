@@ -7,7 +7,6 @@ import java.util.Optional;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.entities.Order;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.entities.User;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.exceptions.UserNotFoundException;
-import com.stacksmplify.restservices.sprngbootbuildingblocks.repositories.IOrderRepository;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,6 @@ public class OrderHateoasController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private IOrderRepository OrderRepository;
 
     //get all orders for a user;
 

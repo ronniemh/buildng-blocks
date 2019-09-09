@@ -8,7 +8,6 @@ import javax.validation.constraints.Min;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.entities.Order;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.entities.User;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.exceptions.UserNotFoundException;
-import com.stacksmplify.restservices.sprngbootbuildingblocks.repositories.UserRepository;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +31,6 @@ import org.springframework.web.server.ResponseStatusException;
 @Validated
 public class UserHateoasController {
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
