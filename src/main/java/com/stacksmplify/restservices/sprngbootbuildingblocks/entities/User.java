@@ -21,8 +21,10 @@ import org.springframework.hateoas.ResourceSupport;
 // @Entity(name = "nombre-real-db")
 @Entity
 @Table(name = "user")
-//@JsonFilter(value = "userFilter") -- Used fir MappingJacksonValue filtering section
-//@JsonIgnoreProperties({"firstname", "lastname"}) -- Static Filtering @JsonIgnore
+// @JsonFilter(value = "userFilter") -- Used fir MappingJacksonValue filtering
+// section
+// @JsonIgnoreProperties({"firstname", "lastname"}) -- Static Filtering
+// @JsonIgnore
 public class User extends ResourceSupport {
 
     @Id
@@ -53,7 +55,7 @@ public class User extends ResourceSupport {
     private String role;
 
     @Column(name = "SSN", length = 50, nullable = false, unique = true)
-    //@JsonIgnore - Static filter @JsonIgnore
+    // @JsonIgnore - Static filter @JsonIgnore
     @JsonView(Views.Internal.class)
     private String ssn;
 
@@ -66,16 +68,18 @@ public class User extends ResourceSupport {
     @JsonView(Views.Internal.class)
     private Set<Order> orders;
 
+    @Column(name = "ADDRESS")
+    private String address;
+
     // No argument constructor
 
     public User() {
     }
 
     // Fields constructor
-
     public User(Long userId, @NotEmpty(message = "Username is mandatory field. Plese provide username") String username,
             @Size(min = 2, message = "FirstName should have atleast 2 characters") String firstname, String lastname,
-            String email, String role, String ssn, Set<Order> orders) {
+            String email, String role, String ssn, Set<Order> orders, String address) {
         this.userId = userId;
         this.username = username;
         this.firstname = firstname;
@@ -84,6 +88,7 @@ public class User extends ResourceSupport {
         this.role = role;
         this.ssn = ssn;
         this.orders = orders;
+        this.address = address;
     }
 
     // Getters and Setters
@@ -128,7 +133,6 @@ public class User extends ResourceSupport {
         this.ssn = ssn;
     }
 
-
     public String getFirstname() {
         return firstname;
     }
@@ -152,8 +156,17 @@ public class User extends ResourceSupport {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+    
+    
+    public String getAddress() {
+        return address;
+    }
+    
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
     // To String - Optional required for bean logging
-
     @Override
     public String toString() {
         return "User [email=" + email + ", firstname=" + firstname + ", lastname=" + lastname + ", role=" + role
