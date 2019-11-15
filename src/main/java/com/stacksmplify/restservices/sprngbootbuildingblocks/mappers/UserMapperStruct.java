@@ -14,9 +14,9 @@ import org.mapstruct.factory.Mappers;
  * UserMapper
  */
 @Mapper(componentModel = "Spring")
-public interface UserMapper {
+public interface UserMapperStruct {
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+    UserMapperStruct INSTANCE = Mappers.getMapper(UserMapperStruct.class);
 
     // User to User DTO
 

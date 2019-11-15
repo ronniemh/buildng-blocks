@@ -156,6 +156,7 @@ public class User extends ResourceSupport {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+<<<<<<< HEAD
 
     public String getAddress() {
         return address;
@@ -165,8 +166,19 @@ public class User extends ResourceSupport {
         this.address = address;
     }
 
+=======
+    
+    
+    public String getAddress() {
+        return address;
+    }
+    
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
+>>>>>>> 6cd01033dd656b9ef260b975bf2a0e1d35cf28e9
     // To String - Optional required for bean logging
-
     @Override
     public String toString() {
         return "User [email=" + email + ", firstname=" + firstname + ", lastname=" + lastname + ", role=" + role

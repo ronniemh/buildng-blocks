@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.stacksmplify.restservices.sprngbootbuildingblocks.dtos.UserMsDto;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.entities.User;
-import com.stacksmplify.restservices.sprngbootbuildingblocks.mappers.UserMapper;
+import com.stacksmplify.restservices.sprngbootbuildingblocks.mappers.UserMapperStruct;
 import com.stacksmplify.restservices.sprngbootbuildingblocks.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserMapStructController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserMapperStruct userMapper;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserRepository userRepository; 
 
     @GetMapping
     public List<UserMsDto> getAllUserDtos() {
